@@ -27,6 +27,9 @@ class Comment
     #[ORM\Column(type: 'datetime_immutable')]
     private $updatedAt;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'comments')]
+    private $author;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +79,18 @@ class Comment
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

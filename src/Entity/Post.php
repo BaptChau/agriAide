@@ -39,6 +39,10 @@ class Post
     #[ORM\ManyToOne(targetEntity: PostSubCategory::class, inversedBy: 'posts')]
     private $subCategoryId;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $author;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -147,6 +151,18 @@ class Post
     public function setSubCategoryId(?PostSubCategory $subCategoryId): self
     {
         $this->subCategoryId = $subCategoryId;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }
